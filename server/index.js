@@ -1,47 +1,45 @@
+// Importing required modules
 const path = require("path");
 const express = require("express");
 const cors = require("cors");
-const app = express();
+const morgan = require('morgan');
 const jwt = require("jsonwebtoken");
-const morgan = require('morgan')
+
+// Creating an instance of express app
+const app = express();
+
+// Exporting the app instance
 module.exports = app;
 
+// Using cors middleware to enable cross-origin resource sharing
 app.use(cors());
-app.use(morgan('dev'))
 
-// Body parsing middleware
+// Using morgan middleware for logging HTTP requests
+app.use(morgan('dev'));
+
+// Using body parsing middleware to parse incoming request bodies
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Static file-serving middleware
+// Using static file-serving middleware to serve static files from the public directory
 app.use(express.static(path.join(__dirname, "..", "public")));
 
-// Routes that will be accessed via AJAX should be prepended with
-// /api so they are isolated from our GET /* wildcard.
+// Using routes for API and authentication
 app.use("/api", require("./api"));
 app.use("/auth", require("./auth"));
 
-// This middleware will catch any URLs resembling a file extension
-// for example: .js, .html, .css
-// This allows for proper 404s instead of the wildcard '#<{(|' catching
-// URLs that bypass express.static because the given file does not exist.
-
+// Middleware to catch any URLs resembling a file extension and send a 404 response
 app.use((req, res, next) => {
-    if (path.extname(req.path).length > 0) {
-        res.status(404).end();
-    } else {
-        next();
-    }
+ if (path.extname(req.path).length > 0) {
+ res.status(404).end();
+ } else {
+ next();
+ }
 });
 
-//DOES NOT HELP API ROUTES WORK <---- need it for AUTH so I uncommented ---- LAI
-// app.use("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "..", "/public/index.html"));
-// });
-
-// Error catching endware
+// Error catching endware to log errors and send appropriate response
 app.use((err, req, res, next) => {
-    console.error(err, typeof next);
-    console.error(err.stack);
-    res.status(err.status || 500).send(err.message || "Internal server error.");
+ console.error(err);
+ console.error(err.stack);
+ res.status(err.status || 500).send(err.message || "Internal server error.");
 });
