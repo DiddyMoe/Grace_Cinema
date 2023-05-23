@@ -5,43 +5,48 @@ import { selectMovies } from "../../features/allMovies/allMoviesSlice";
 import RightSideNav from "../RightSideNav";
 import { addToCart } from "../../features/cartSlice";
 
-
 const Bio = () => {
+  // Get the movies from the Redux store
+  const bio = useSelector(selectMovies)
+  // Get the dispatch function from the Redux store
+  const dispatch = useDispatch()
+  // Get the navigate function from React Router
+  const navigate = useNavigate();
 
-const bio = useSelector(selectMovies)
-const dispatch = useDispatch()
-const navigate = useNavigate();
+  // Function to handle adding a movie to the cart
+  const handleAddToCart = (filter) => {
+    // Dispatch an action to add the movie to the cart
+    dispatch(addToCart(filter));
+    // Navigate to the cart page
+    navigate("/cart");
+  };
 
-const handleAddToCart = (filter) => {
-  dispatch(addToCart(filter));
-  navigate("/cart");
-};
   return (
     <section className="container">
-    <h1 className="genre">No Biography/Historical Movies yet</h1>
+      <h1 className="genre">Biography/Historical</h1>
       {bio.map((filter) => {
-        if(filter.genre === 'Biography/Historical'){
-          return(
+        if (filter.genre === 'Biography/Historical') {
+          return (
             <div className="card">
-                <div className="card-image">
-               <Link to={`/movies/${filter.id}`}>
-                    <img className="movieImage" src={filter.imageUrl} alt="" />
-                    <h2 className="movieTitle">{filter.title}</h2>
-                    <h2 className="moviePrice">
-                      <small>${filter.price}</small>
-                    </h2>
-                    </Link>
-                    <button onClick={() => handleAddToCart(filter)}>
-                      Add To Cart
-                    </button>
-                    </div>
+              <div className="card-image">
+                <Link to={`/movies/${filter.id}`}>
+                  <img className="movieImage" src={filter.imageUrl} alt="" />
+                  <h2 className="movieTitle">{filter.title}</h2>
+                  <h2 className="moviePrice">
+                    <small>${filter.price}</small>
+                  </h2>
+                </Link>
+                <button onClick={() => handleAddToCart(filter)}>
+                  Add To Cart
+                </button>
+              </div>
             </div>
           )
         }
       })}
-<RightSideNav/>
-		</section>
-	);
+      <RightSideNav />
+    </section>
+  );
 };
 
 export default Bio;

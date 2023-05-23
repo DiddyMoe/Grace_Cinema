@@ -11,16 +11,24 @@ import Orders from "./Orders";
 import SideNav from "./SideNav";
 import NoPage from "./NoPage";
 
-// The Admin's profile who will have more control to the website than users
-
+// This is a functional component that represents the Admin panel
 const Admin = () => {
   return (
-	<div className="admin-container">
-		{/* <AdminBar /> */}
-		
-
-	</div>
-	);
+    <div className="admin-container">
+      {/* Add a component to manage users */}
+      <Users />
+      {/* Add a component to view and manage orders */}
+      <Orders />
+      {/* Add a component to manage products */}
+      <Movies />
+      {/* Add a component to manage personnel */}
+      <Personnel />
+      {/* Add a component to view user profiles */}
+      <UserProfile />
+      {/* Add a component to manage the shopping cart */}
+      <Cart />
+    </div>
+  );
 };
 
 export default Admin;

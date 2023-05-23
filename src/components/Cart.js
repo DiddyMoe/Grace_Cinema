@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import {
@@ -11,28 +10,32 @@ import {
 } from "../features/cartSlice";
 import "./cart.css";
 
-// This holds all the items that the customers want to buy/Checkout
-// also we could update the orders
-
+// This component displays the shopping cart and allows the user to update their orders
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  // console.log(cart.cartItems);
 
+  // Update the cart totals whenever the cart changes
   useEffect(() => {
     dispatch(getTotals());
   }, [cart, dispatch]);
 
+  // Remove an item from the cart
   const handleRemoveFromCart = (cartItem) => {
     dispatch(removeFromCart(cartItem));
   };
 
+  // Decrease the quantity of an item in the cart
   const handleDecreaseCart = (cartItem) => {
     dispatch(decreaseCart(cartItem));
   };
+
+  // Increase the quantity of an item in the cart
   const handleIncreaseCart = (cartItem) => {
     dispatch(addToCart(cartItem));
   };
+
+  // Clear all items from the cart
   const handleClearCart = (cartItem) => {
     dispatch(clearCart(cartItem));
   };
