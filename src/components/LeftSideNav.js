@@ -1,7 +1,7 @@
 import React from "react";
 
 
-// The sideNav bar
+// The LeftSideNav component is a side navigation bar on the left side of the display
 
 const LeftSideNav = () => {
   return (
