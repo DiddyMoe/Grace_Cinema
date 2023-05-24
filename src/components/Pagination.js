@@ -1,31 +1,31 @@
 import React from "react";
 import "./Pagination.css";
 
+// The Pagination component displays a list of page numbers for navigating through paginated content
 const Pagination = ({
   totalPosts,
   postPerPage,
   setCurrentPage,
   currentPage,
 }) => {
-  let pages = [];
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(totalPosts / postPerPage);
 
-  for (let i = 1; i <= Math.ceil(totalPosts / postPerPage); i++) {
-    pages.push(i);
-  }
+  // Create an array of page numbers
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
     <div className="pagination">
-      {pages.map((page, index) => {
-        return (
-          <button
-            key={index}
-            onClick={() => setCurrentPage(page)}
-            className={page == currentPage ? "active" : ""}
-          >
-            {page}
-          </button>
-        );
-      })}
+      {/* Map over the pages and display a button for each page */}
+      {pages.map((page) => (
+        <button
+          key={page}
+          onClick={() => setCurrentPage(page)}
+          className={page === currentPage ? "active" : ""}
+        >
+          {page}
+        </button>
+      ))}
     </div>
   );
 };

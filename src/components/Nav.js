@@ -4,12 +4,15 @@ import "./nav.css";
 import { useSelector } from "react-redux";
 
 const Nav = () => {
+  // Use the useSelector hook to get the cartTotalQuantity from the cart state in the Redux store
   const { cartTotalQuantity } = useSelector((state) => state.cart);
 
   return (
     <nav className="nav-bar">
       <Link to="/login">Login/Signup</Link>
-      <Link to="/"><h1>Grace Cinema</h1></Link>
+      <Link to="/">
+        <h1>Grace Cinema</h1>
+      </Link>
       <Link to="/cart">
         <div className="nav-bag">
           <svg
