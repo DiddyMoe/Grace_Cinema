@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { selectMovies } from "../features/allMovies/allMoviesSlice";
-import Fantasy from "./allGenres/Fantasy";
+import React from "react";
 import { Link } from "react-router-dom";
 
-// The sideNav bar
-
+// The RightSideNav component displays a list of links to sort movies by genre
 const RightSideNav = () => {
-  // const [filtered, setfilter] = useState([]);
-
-  // console.log(fantasyMovie)
   return (
     <div className="container-sorted-movies">
       <h1>Sort Movies By!</h1>
