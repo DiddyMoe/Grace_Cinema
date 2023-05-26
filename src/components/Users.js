@@ -1,41 +1,27 @@
-import React, { useState } from "react";
-import Nav from "./Nav";
-import Movies from "./Movies";
-import SingleMovie from "./SingleMovie";
-import Personnel from "./Personnel";
-import SinglePerson from "./SinglePerson";
-import Admin from "./Admin";
-import UserProfile from "./UserProfile";
-import Cart from "./Cart";
-import Orders from "./Orders";
-import SideNav from "./LeftSideNav";
-import NoPage from "./NoPage";
-
+import React from "react";
 import { useSelector } from "react-redux";
 import { selectUsers } from '../features/users';
 
+// Users component displays a list of users
 const Users = () => {
-	const users = useSelector(selectUsers)
-
-	// console.log(users);
+  // Get users from Redux store
+  const users = useSelector(selectUsers);
 
   return (
-  <div>
-	<h1>Welcome to the Users Component!</h1>
-	{
-			users.map((user)=>{
-				return(
-					<div key = {user.id}>
-						<h4>First Name: {user.fName}</h4>
-						<h4>Last Name: {user.lName}</h4>
-						<h4>Email: {user.email}</h4>
-						<h4>Type: {user.type}</h4>
-					</div>
-				)
-			})
-		}
-  </div>
-
+    <div>
+      <h1>Welcome to the Users Component!</h1>
+      {/* Map over users and display their information */}
+      {users.map((user) => {
+        return (
+          <div key={user.id}>
+            <h4>First Name: {user.fName}</h4>
+            <h4>Last Name: {user.lName}</h4>
+            <h4>Email: {user.email}</h4>
+            <h4>Type: {user.type}</h4>
+          </div>
+        );
+      })}
+    </div>
   );
 };
 

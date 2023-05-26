@@ -1,49 +1,34 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Nav from "./Nav";
-import Movies from "./Movies";
-import SingleMovie from "./SingleMovie";
-import Personnel from "./Personnel";
-import SinglePerson from "./SinglePerson";
-import Admin from "./Admin";
-import Users from "./Users";
-import Cart from "./Cart";
-import Orders from "./Orders";
 import LeftSideNav from "./LeftSideNav";
-import NoPage from "./NoPage";
-import { fetchSpecificUserAsync, selectSpecificUser }  from "../features/specificUserSlice";
-// const userDummy = {
-// 		email: 'user1@customer.mail',
-// 		password: 'password1',
-// 		fName: 'Samwise',
-// 		lName: 'Gamgee',
-// 		type: 'customer'
-// }
+import { logout } from "../features/authSlice";
 
-const UsersProfile = (props) => {
-		const user = useSelector((state) => state.auth.me.email);
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
+// UsersProfile component displays the user's profile information
+const UsersProfile = () => {
+  // Get the current user's email from the Redux store
+  const userEmail = useSelector((state) => state.auth.me.email);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // Function to handle logout and redirect to the login page
   const logoutAndRedirectHome = () => {
     dispatch(logout());
-    navigate('/login');
+    navigate("/login");
   };
-// 	useEffect(() => {
-// 		dispatch(fetchSpecificUserAsync(id))
-// 	}, [dispatch])
-
 
   return (
-	<div>Welcome to your User Profile
-		<h2>Welcome, {user}</h2>
-		<button type="button" onClick={logoutAndRedirectHome}>
-              Logout
-            </button>
-		{/* <h1>{user.fName} {user.lName}</h1>
-		<h2>{user.email}</h2> */}
-		<h3><LeftSideNav/></h3>
-		</div>)
+    <div>
+      Welcome to your User Profile
+      <h2>Welcome, {userEmail}</h2>
+      <button type="button" onClick={logoutAndRedirectHome}>
+        Logout
+      </button>
+      <h3>
+        <LeftSideNav />
+      </h3>
+    </div>
+  );
 };
 
 export default UsersProfile;
