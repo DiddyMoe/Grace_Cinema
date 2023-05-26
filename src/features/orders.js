@@ -1,8 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// Initial state of the orders
 const initialState = [];
 
+// Async thunk to fetch orders from the API
 export const fetchOrdersAsync = createAsyncThunk("orders", async () => {
   try {
     const { data } = await axios.get(`http://localhost:8080/api/orders`);
@@ -12,25 +14,19 @@ export const fetchOrdersAsync = createAsyncThunk("orders", async () => {
   }
 });
 
-// export const addOrderAsync = createAsyncThunk("addOrder", async (order) => {
-//     const { data } = await axios.post(`/api/movies`, order);
-//     return data
-// });
-
 const ordersSlice = createSlice({
   name: "orders",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    // Handle the fulfilled action of fetchOrdersAsync
     builder.addCase(fetchOrdersAsync.fulfilled, (state, action) => {
       return action.payload;
     });
-    // builder.addCase(addOrderAsync.fulfilled, (state, action) => {
-    //   state.push(action.payload);
-    // });
   },
 });
 
+// Selector to get orders from the state
 export const selectOrders = (state) => {
   return state.orders;
 };

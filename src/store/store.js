@@ -9,19 +9,20 @@ import cartSlice from "../features/cartSlice";
 import authSlice from "../features/authSlice";
 
 
+// Create the Redux store using the configureStore function
 const store = configureStore({
+  // Define the root reducer by combining all the feature slices
   reducer: {
     users: usersSlice,
     user: specificUserSlice,
-		movies: allMoviesSlice,
+    movies: allMoviesSlice,
     singleMovie: singleMovieSlice,
     orders: ordersSlice,
     personnel: allPersonnelSlice,
     cart: cartSlice,
-	   auth: authSlice
+    auth: authSlice
   },
 });
 // First dispatch when the application loads
 // store.dispatch(getTotals());
 export default store;
-

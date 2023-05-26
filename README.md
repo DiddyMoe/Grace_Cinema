@@ -20,3 +20,5 @@ In src/Pagination.js I made the following changes and I am documenting them for 
 3. I replaced the == comparison operator with the strict equality operator === when checking if a page is the current page. The strict equality operator is recommended in JavaScript because it avoids type coercion and can prevent unexpected behavior.
 
 4. I added comments throughout the code to explain what each part does and make it easier for others to understand.
+
+In src/features/authSlice.js, I changed the code to use optional chaining (?.) to simplify error handling and reduce the number of lines of code. Additionally, the try block in the me async thunk has been moved inside the if statement to only catch errors when a token is present. I wish I knew about this method earlier instead of using nested if/ else statements.
